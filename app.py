@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import requests
 
 property_price = float(input('Enter property price in GBP: '))
 ltv = float(input('Enter the maximum LTV offered by your bank: '))

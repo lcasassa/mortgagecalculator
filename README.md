@@ -10,9 +10,15 @@ If you don't have pipenv, have a look here: https://github.com/pypa/pipenv or el
 
 ### Installing
 After cloning the repo and once in the directory run the following to install all packages: 
+
 `$ pipenv install`
+
 To get into the venv shell: 
+
 `$ pipenv shell`
-And run the app
+
+And run the app:
+
 `$ python app.py`
+
 And you're good to go to enter your mortgage details and get a simple calculation. 

@@ -1,28 +1,27 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import requests
 
 # finding out the maximum loan value according to property price
 property_price = float(input('Enter property price in GBP: '))
 ltv = float(input('Enter the maximum LTV offered by your bank: '))
 
 loan_amount = property_price*(ltv/100)
+min_deposit = np.round((property_price*(1-(ltv/100))), 2)
 
-print("The loan amount would be of: = £" + str(property_price*(ltv/100)))
-print("At a LTV of {}%, your minimum deposit would be of: = £".format(ltv) + str(np.round(property_price*(1-(ltv/100)), 2)))
+print("The loan amount would be of: = £{}".format(loan_amount))
+print("At a LTV of {}%,".format(ltv) + "your minimum deposit would be of: = £{}".format(min_deposit))
 
 # deposit according to LTV or higher
 deposit = float(input('Enter amount of deposit, this can be higher to reduce your LTV and the amount of the loan: '))
 
-
-new_ltv = (1-(deposit/property_price))*100
-deposit_p = (deposit/property_price)*100
+new_ltv = np.round((1-(deposit/property_price))*100, 2)
+deposit_percentage = np.round((deposit/property_price)*100, 2)
 
 # summary of deposit and LTV
-if deposit == property_price - loan_amount is True:
+if new_ltv < ltv:
     print("With that deposit, the LTV would be of: = {}%".format(new_ltv))
-    print("And the deposit as a percentage of the value would be of: = {}%".format(deposit_p))
+    print("And the deposit as a percentage of the value would be of: = {}%".format(deposit_percentage))
 else: 
     print("Excellent! let's find out more about your mortgage")
 

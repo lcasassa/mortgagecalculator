@@ -18,12 +18,16 @@ deposit = float(input('Enter amount of deposit, this can be higher to reduce you
 new_ltv = np.round((1-(deposit/property_price))*100, 2)
 deposit_percentage = np.round((deposit/property_price)*100, 2)
 
-# summary of deposit and LTV
-if new_ltv < ltv:
-    print("With that deposit, the LTV would be of: = {}%".format(new_ltv))
-    print("And the deposit as a percentage of the value would be of: = {}%".format(deposit_percentage))
-else: 
-    print("Excellent! let's find out more about your mortgage")
+# check if deposit is equal or higher than the minimum; calculate respective LTV if necessary
+while deposit < min_deposit: 
+    print("I'm sorry, but your deposit can't be lower that {}".format(min_deposit))
+    deposit = float(input('Enter a value that is equal or higher to £{} '.format(min_deposit)))
+    if deposit > min_deposit:
+        print("With that deposit, the LTV would be of: = {}%".format(new_ltv))
+        print("And the deposit as a percentage of the value would be of: = {}%".format(deposit_percentage))
+    elif deposit == min_deposit:
+        print("Excellent! let's find out more about your mortgage")
+        break
 
 # calculating monthly repayments based on interest and mortgage type in years
 interest = float(input('Please enter the annual interest rate for the loan: '))
@@ -34,7 +38,7 @@ monthly_interest = (interest/12)
 #capital recovery factor
 capital_rf = (1-(1+interest/(12*100))**(-loan_term))
 
-monthly_repayments = loan_amount*((interest/(12*100))/(1-(1+interest/(12*100))**(-loan_term)))
+monthly_repayments = loan_amount*((interest/(12*100))/capital_rf)
 
 # for calculating total interet paid
 value_of_loan = (monthly_repayments*loan_term)
@@ -50,5 +54,6 @@ interest_monthly = []
 month_starting_balance = []
 month_ending_balance = []
 
-# use range to generate sequence of numbers
-# for a in range(1, loan_term)
+# use range to generate sequence of numbers from 1 to the last loan month
+# for a in range(1, loan_term+1):
+#     end_of_month = loan_amount + monthly_interest*loan_amount - monthly_repayments
